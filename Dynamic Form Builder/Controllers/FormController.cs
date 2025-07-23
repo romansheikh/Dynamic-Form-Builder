@@ -40,34 +40,11 @@ namespace Dynamic_Form_Builder.Controllers
 
         public IActionResult Create() => View();
 
-        [HttpPost]
-        public IActionResult Create(Form form)
+        public IActionResult RenderDropdown(int index)
         {
-            //foreach (var field in form.Fields)
-            //{
-            //    Console.WriteLine($"Label: {field.Label}, Required: {field.IsRequired}, Option: {field.SelectedOption}");
-            //}
-
-            using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Forms (Title) VALUES (@title); SELECT SCOPE_IDENTITY();", conn);
-                cmd.Parameters.AddWithValue("@title", form.Title);
-                int formId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                foreach (var field in form.Fields)
-                {
-                    SqlCommand fieldCmd = new SqlCommand("INSERT INTO FormFields (FormId, Label, IsRequired, SelectedOption) VALUES (@formId, @label, @isRequired, @selectedOption)", conn);
-                    fieldCmd.Parameters.AddWithValue("@formId", formId);
-                    fieldCmd.Parameters.AddWithValue("@label", field.Label);
-                    fieldCmd.Parameters.AddWithValue("@isRequired", field.IsRequired);
-                    fieldCmd.Parameters.AddWithValue("@selectedOption", field.SelectedOption);
-                    fieldCmd.ExecuteNonQuery();
-                }
-            }
-            return RedirectToAction("Index");
+            return ViewComponent("DropdownField", new { index = index });
         }
-
+        
         public IActionResult Preview(int id)
         {
             Form form = new Form();

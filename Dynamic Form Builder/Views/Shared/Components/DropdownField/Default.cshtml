@@ -1,0 +1,28 @@
+﻿@model List<string>
+@{
+    var index = ViewBag.Index;
+}
+
+<div class="mb-4 border p-3 rounded bg-light position-relative field" id="field-@index">
+    <button type="button" class="btn-close position-absolute top-0 end-0 m-2" onclick="removeField(@index)" aria-label="Remove"></button>
+
+    <div class="mb-2">
+        <label class="form-label">Label</label>
+        <input type="text" name="Fields[@index].Label" class="form-control label" required />
+    </div>
+
+    <div class="mb-2">
+        <label class="form-label">Options</label>
+        <select name="Fields[@index].SelectedOption" class="form-select select">
+            @foreach (var opt in Model)
+            {
+                <option value="@opt">@opt</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" name="Fields[@index].IsRequired" class="form-check-input required" id="required-@index" value="true" />
+        <label class="form-check-label" for="required-@index">Required</label>
+    </div>
+</div>
