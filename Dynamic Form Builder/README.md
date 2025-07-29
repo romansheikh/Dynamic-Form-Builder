@@ -71,6 +71,11 @@ Update appsettings.json with your SQL Server credentials:
   "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=FormBuilderDB;User Id=your_user;Password=your_password;TrustServerCertificate=True;"
 }
 
+DynamicFormBuilder/
+│
+├── README.md
+├── FormBuilderDB.bak
+
 Run the project in Visual Studio (Ctrl + F5)
 
 🌐 Pages Summary
